@@ -1,35 +1,31 @@
 #!/usr/bin/env python
-import subprocess
+import threading
+import time
 import os
-import signal
 import sys
+from uvicorn import run
+from backend.crm_service import app as crm_app
+from backend.channel_stub import app as channel_app
 
-# Start channel stub on port 8001
-channel_process = subprocess.Popen([
-    sys.executable, "-m", "uvicorn", 
-    "backend.channel_stub:app",
-    "--host", "0.0.0.0",
-    "--port", "8001"
-])
 
-# Start CRM service on dynamic port
-port = os.environ.get("PORT", "8000")
-crm_process = subprocess.Popen([
-    sys.executable, "-m", "uvicorn",
-    "backend.crm_service:app",
-    "--host", "0.0.0.0",
-    "--port", port
-])
+def run_channel():
+    """Run channel stub on port 8001"""
+    run(channel_app, host="0.0.0.0", port=8001, log_level="info")
 
-def signal_handler(sig, frame):
-    channel_process.terminate()
-    crm_process.terminate()
-    sys.exit(0)
 
-signal.signal(signal.SIGTERM, signal_handler)
-signal.signal(signal.SIGINT, signal_handler)
+def run_crm():
+    """Run CRM on dynamic port"""
+    port = int(os.environ.get("PORT", 8000))
+    run(crm_app, host="0.0.0.0", port=port, log_level="info")
 
-# Keep both processes running
-while True:
-    if channel_process.poll() is not None or crm_process.poll() is not None:
-        break
+
+if __name__ == "__main__":
+    # Start channel stub in background thread
+    channel_thread = threading.Thread(target=run_channel, daemon=True)
+    channel_thread.start()
+    
+    # Give channel stub a moment to start
+    time.sleep(2)
+    
+    # Run CRM in main thread
+    run_crm()

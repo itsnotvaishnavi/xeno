@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: xeno-crm
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: "python -m uvicorn backend.crm_service:app --host 0.0.0.0 --port 8000 & python backend/channel_stub.py"
+    envVars:
+      - key: CHANNEL_SERVICE_URL
+        value: http://localhost:8001
+      - key: CRM_CALLBACK_URL
+        fromService:
+          name: xeno-crm
+          property: renderURL
+          path: /api/callback

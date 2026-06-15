@@ -1,0 +1,18 @@
+{
+  "customers": [
+    {"id": 1, "name": "Aisha Khan", "email": "aisha@example.com", "phone": "+15551230001", "tags": "coffee-lover,high-value", "signup_date": "2026-01-05"},
+    {"id": 2, "name": "Diego Rivera", "email": "diego@example.com", "phone": "+15551230002", "tags": "fashion,occasional", "signup_date": "2025-12-12"},
+    {"id": 3, "name": "Mina Patel", "email": "mina@example.com", "phone": "+15551230003", "tags": "beauty,frequent", "signup_date": "2024-09-01"},
+    {"id": 4, "name": "Noah Lee", "email": "noah@example.com", "phone": "+15551230004", "tags": "new,high-potential", "signup_date": "2026-05-02"},
+    {"id": 5, "name": "Sofia Alvarez", "email": "sofia@example.com", "phone": "+15551230005", "tags": "coffee,winback", "signup_date": "2025-08-20"}
+  ],
+  "orders": [
+    {"id": 101, "customer_id": 1, "amount": 78.40, "category": "Coffee", "order_date": "2026-05-15"},
+    {"id": 102, "customer_id": 1, "amount": 22.10, "category": "Merch", "order_date": "2026-06-08"},
+    {"id": 103, "customer_id": 2, "amount": 145.00, "category": "Fashion", "order_date": "2025-12-20"},
+    {"id": 104, "customer_id": 3, "amount": 34.50, "category": "Beauty", "order_date": "2026-04-11"},
+    {"id": 105, "customer_id": 3, "amount": 49.99, "category": "Beauty", "order_date": "2026-05-29"},
+    {"id": 106, "customer_id": 4, "amount": 29.75, "category": "Coffee", "order_date": "2026-05-25"},
+    {"id": 107, "customer_id": 5, "amount": 18.20, "category": "Coffee", "order_date": "2025-10-18"}
+  ]
+}

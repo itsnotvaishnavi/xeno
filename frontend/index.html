@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xeno Mini CRM</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="branding">
+      <div>
+        <h1>Xeno AI-native Mini CRM</h1>
+        <p>Run a shopper engagement workflow with real campaign staging, AI-assisted segment creation, and a callback-driven channel simulator.</p>
+      </div>
+      <div class="status-pill">Live prototype</div>
+    </div>
+  </header>
+  <main>
+    <section class="card hero-panel">
+      <div class="hero-copy">
+        <h2>Turn shopper data into a campaign in minutes</h2>
+        <p class="description">Seed customer purchase history, generate an audience with AI guidance, draft a personalized campaign, and observe the channel lifecycle from queued send to delivered, opened, clicked, and converted.</p>
+        <div class="info-grid">
+          <div class="kpi-card">
+            <strong>AI-native experience</strong>
+            Use AI suggestion for segments and message drafting, with explicit local fallbacks.
+          </div>
+          <div class="kpi-card">
+            <strong>Stub channel lifecycle</strong>
+            Separate send service simulates callbacks so the CRM updates delivery and engagement state.
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Quick start</h2>
+        <p class="small-note">Press the button below to populate the CRM with sample shoppers and orders.</p>
+        <button id="loadSampleData">Load sample data</button>
+        <div id="seedStatus" class="small-note"></div>
+      </div>
+    </section>
+
+    <section class="card grid">
+      <div>
+        <h2>AI Segment Suggestion</h2>
+        <p class="small-note">Describe the campaign goal and get a target segment suggestion.</p>
+        <label>Goal
+          <textarea id="segmentGoal" placeholder="e.g. re-engage coffee shoppers who haven’t ordered in 60 days"></textarea>
+        </label>
+        <button id="suggestSegment">Suggest segment</button>
+        <div id="segmentSuggestion" class="small-note"></div>
+      </div>
+
+      <div>
+        <h2>AI Message Draft</h2>
+        <p class="small-note">Draft channel-specific copy with a single prompt.</p>
+        <label>Brand
+          <input id="messageBrand" placeholder="Example Brand" value="Astra Coffee" />
+        </label>
+        <label>Goal
+          <textarea id="messageGoal" placeholder="e.g. announce a loyalty perk"></textarea>
+        </label>
+        <label>Channel
+          <select id="messageChannel">
+            <option>SMS</option>
+            <option>Email</option>
+            <option>WhatsApp</option>
+          </select>
+        </label>
+        <button id="draftMessage">Draft message</button>
+        <div id="messageDraftResult" class="small-note"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Build a segment</h2>
+      <p class="small-note">Choose audience filters based on category, spend, recency, and shopper tags.</p>
+      <div class="grid">
+        <label>Segment name
+          <input id="segmentName" placeholder="High-value coffee fans" />
+        </label>
+        <label>Category
+          <input id="segmentCategory" placeholder="Coffee, Fashion, Beauty" />
+        </label>
+        <label>Min total spend
+          <input id="segmentMinSpend" type="number" min="0" placeholder="20" />
+        </label>
+        <label>Max last-order days
+          <input id="segmentMaxDays" type="number" min="0" placeholder="90" />
+        </label>
+        <label>Tag filter
+          <input id="segmentTag" placeholder="new, high-value, winback" />
+        </label>
+      </div>
+      <button id="saveSegment">Save segment</button>
+      <div id="segmentStatus" class="small-note"></div>
+    </section>
+
+    <section class="card">
+      <h2>Launch a campaign</h2>
+      <p class="small-note">Select the segment and channel, then personalize the copy.</p>
+      <div class="grid">
+        <label>Campaign name
+          <input id="campaignName" placeholder="Spring re-engagement" />
+        </label>
+        <label>Segment
+          <select id="campaignSegment"></select>
+        </label>
+        <label>Channel
+          <select id="campaignChannel">
+            <option>SMS</option>
+            <option>Email</option>
+            <option>WhatsApp</option>
+          </select>
+        </label>
+        <label>Subject (Email only)
+          <input id="campaignSubject" placeholder="Your exclusive upgrade awaits" />
+        </label>
+      </div>
+      <label>Message body
+        <textarea id="campaignBody" placeholder="Write the message for the selected audience. Use {name} to personalize."></textarea>
+      </label>
+      <button id="launchCampaign">Launch campaign</button>
+      <div id="campaignStatus" class="small-note"></div>
+    </section>
+
+    <section class="card">
+      <h2>Campaign overview</h2>
+      <div class="small-note">Track campaign totals and individual communication outcomes as the channel callback simulator updates state.</div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Campaign</th><th>Channel</th><th>Recipients</th><th>Delivered</th><th>Opened</th><th>Clicked</th><th>Converted</th></tr>
+          </thead>
+          <tbody id="campaignTable"></tbody>
+        </table>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Campaign ID</th><th>Customer</th><th>Channel</th><th>Status</th><th>Outcome</th></tr>
+          </thead>
+          <tbody id="communicationTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">Built as an AI-native mini CRM prototype for Xeno.</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
